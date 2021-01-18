@@ -1,3 +1,6 @@
 venv/*
 .vscode/*
 .mypy_cache/*
+build/*
+dist/*
+mimcvdf.egg-info/*

@@ -14,14 +14,23 @@ class TestMimc(unittest.TestCase):
         data = b"a" * 6000000
         h = sha3_256()
         h.update(data)
-        data = int(h.hexdigest(), 16)
+        data = h.digest()
 
         forw = mimcvdf.forward_mimc(data, 2000)
 
         rev = mimcvdf.reverse_mimc(forw, 2000)
 
-        print(data)
-        print(forw, rev)
+        print(data.hex())
+        print(forw.hex(), rev.hex())
         self.assertEqual(rev, data)
+
+    def test_expected_data(self):
+        h = sha3_256()
+        h.update(b"test")
+        data = h.digest()
+        self.assertEqual(
+            "66ea2a863bd103f2c7f190503cf8456198f31660069d4903afbd5f2e40a28695",
+            mimcvdf.forward_mimc(data, 2000).hex()
+        )
 
 unittest.main()

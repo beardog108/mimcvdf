@@ -1,4 +1,4 @@
-"""Mimc hash function."""
+"""Slow fallback implementation of MIMC written in pure Python."""
 """
 This module adapted from https://github.com/OlegJakushkin/deepblockchains/blob/master/vdf/mimc/python/mimc.py by Sourabh Niyogi https://github.com/sourabhniyogi
 
@@ -15,22 +15,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 """
-modulus = 2**256 - 2**32 * 351 + 1
-little_fermat_expt = (modulus*2-1)//3
-round_constants = [(i**7) ^ 42 for i in range(64)]
+
+is_fast = False
+
+_modulus = 2**256 - 2**32 * 351 + 1
+_little_fermat_expt = (_modulus*2-1)//3
+_round_constants = [(i**7) ^ 42 for i in range(64)]
 
 
-def forward_mimc(inp: int, steps: int) -> int:
+def forward_mimc(input_data: bytes, steps: int) -> bytes:
+    inp = int.from_bytes(input_data, "big")
     for i in range(1,steps):
-        inp = (inp**3 + round_constants[i % len(round_constants)]) % modulus
-    return inp
+        inp = (inp**3 + _round_constants[i % len(_round_constants)]) % _modulus
+    return inp.to_bytes((inp.bit_length() + 7) // 8, "big")
 
 
-def reverse_mimc(input_data: int, steps: int) -> int:
-    rtrace = input_data
+def reverse_mimc(input_data: bytes, steps: int) -> bytes:
+    rtrace = int.from_bytes(input_data, "big")
 
     for i in range(steps - 1, 0, -1):
-        rtrace = pow(rtrace-round_constants[i%len(round_constants)],
-                     little_fermat_expt, modulus)
-    return rtrace
-
+        rtrace = pow(rtrace-_round_constants[i%len(_round_constants)],
+                     _little_fermat_expt, _modulus)
+    return rtrace.to_bytes((rtrace.bit_length() + 7) // 8, "big")
