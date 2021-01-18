@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages, Extension
 
 setup(name='mimcvdf',
-      version='1.1.0',
+      version='1.2.0',
       description='Generic high level VDF using MiMC',
       author='Kevin Froman',
       author_email='beardog@mailbox.org',
-      url='https://www.chaoswebs.net/',
+      url='https://github.com/beardog108/mimcvdf/',
       packages=find_packages(exclude=['contrib', 'docs', 'tests']),
       install_requires=[],
       ext_package="mimcvdf",

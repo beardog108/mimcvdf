@@ -24,6 +24,8 @@ vdf_verify(same_bytes_data, vdf_create_result, rounds)
 
 ```
 
+For high speed, you need GMP installed. Otherwise, the module will fall back to a Python implementation that is significantly slower.
+
 
 ## Security
 

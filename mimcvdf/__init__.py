@@ -5,7 +5,7 @@ import time
 from statistics import mean
 from math import ceil
 
-from .mimc import forward_mimc, reverse_mimc
+from .mimc import forward_mimc, reverse_mimc, is_fast
 """
 Kevin Froman 2020
 

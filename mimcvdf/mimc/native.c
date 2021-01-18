@@ -5,6 +5,7 @@
 #include <gmp.h>
 
 /*
+C Version by github.com/cartr
 This module adapted from https://github.com/OlegJakushkin/deepblockchains/blob/master/vdf/mimc/python/mimc.py by Sourabh Niyogi https://github.com/sourabhniyogi
 
 This program is free software: you can redistribute it and/or modify
@@ -43,7 +44,7 @@ mimc_init_constants()
 
     // Set LITTLE_FERMAT_EXPT to hex((MODULUS * 2 - 1) // 3)
     mpz_init(LITTLE_FERMAT_EXPT);
-    mpz_set_str(LITTLE_FERMAT_EXPT, 
+    mpz_set_str(LITTLE_FERMAT_EXPT,
                 "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                 "aaaaaaaaaaaaaaaaaaaaa9c0aaaaaaab",
                 16);
